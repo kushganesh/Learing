@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To DO List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(35deg, #153633, #4e085f);
+
+        }
+
+        .card {
+            width: 100vw;
+            min-height: 100vh;
+            background: linear-gradient(35deg, #153633, #4e085f);
+            margin-top: 200px;
+        }
+
+        .add {
+            width: 100%;
+            max-width: 540px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .add h1 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .add h1 img {
+            width: 30px;
+            margin-left: 10px;
+        }
+
+        .add-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #edeef0;
+            padding-left: 10px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+
+        }
+
+        .add-item input {
+            flex: 1;
+            background: transparent;
+            outline: none;
+            border: 0;
+            text-align: center;
+            padding: 10px;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .add-item button {
+
+            outline: none;
+            border: 0;
+            cursor: pointer;
+            background-color: orangered;
+            color: white;
+            padding: 16px 50px;
+            font-size: 16px;
+            border-radius: 20px;
+        }
+
+        ul li {
+            list-style: none;
+            font-size: 20px;
+            user-select: none;
+            cursor: pointer;
+            padding: 10px 8px 12px 50px;
+            position: relative;
+
+            &::before {
+                content: "";
+                width: 25px;
+                height: 25px;
+                position: absolute;
+                border-radius: 50%;
+                background-image: url("images/unchecked.png");
+                background-position: center;
+                background-size: cover;
+                top: 10px;
+                left: 17px;
+            }
+
+        }
+
+        ul li span {
+            position: absolute;
+            right: 0;
+            top: 5px;
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
+            color: #555;
+            line-height: 40px;
+            text-align: center;
+
+            &:hover {
+                background: black;
+                border-radius: 50%;
+                color: white;
+            }
+        }
+
+        ul li.checked {
+            font-weight: 300;
+            color: #555;
+            text-decoration: line-through;
+        }
+
+        ul li.checked::before {
+            background-image: url("images/checked.png");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+
+        <div class="add">
+            <h1>To do List <img src="images/icon.png" alt=""></h1>
+            <div class="add-item">
+                <input type="text" placeholder="Add" required>
+                <button onclick="add()">add</button>
+            </div>
+            <ul class="conatner">
+                <li class="checked">Item-1</li>
+                <li>item-2</li>
+                <li>item-3</li>
+            </ul>
+        </div>
+
+    </div>
+    <script>
+        let input = document.querySelector("input");
+        let container = document.querySelector(".conatner")
+        function add() {
+            if (input.value == '') {
+                alert("inter value in input box")
+            }
+            else {
+                let li = document.createElement("li");
+                li.innerHTML = input.value;
+                container.appendChild(li);
+                let span = document.createElement("span");
+                span.innerHTML = "\u00d7";
+                li.appendChild(span);
+            }
+            input.value = "";
+            localSte();
+
+        }
+
+
+        container.addEventListener("click", (e) => {
+            if (e.target.tagName === "LI") {
+                e.target.classList.toggle("checked");
+                localSte();
+            }
+            else if (e.target.tagName === "SPAN") {
+                e.target.parentElement.remove();
+                localSte();
+            }
+        }, false)
+
+       
+    </script>
+</body>
+
+</html>
